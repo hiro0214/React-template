@@ -20,6 +20,10 @@ chokidar.watch(`${input}/**/*.tsx`).on('all', (event, file) => {
     if (!fs.existsSync(targetCss)) {
       fs.writeFileSync(targetCss, '');
     }
+
+    if (!fs.readFileSync(file, 'utf-8')) {
+      fs.writeFileSync(file, `import styles from '${targetCss.slice(4)}';`);
+    }
   } else if (event === 'unlink') {
     fs.unlink(targetCss, (err) => {
       if (err) throw err;
