@@ -2,11 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import chokidar from 'chokidar';
 
-const input = 'src/components';
+const input = 'src/components/uis';
 chokidar.watch(`${input}/**/*.tsx`).on('all', (event, file) => {
   if (event !== 'add' && event !== 'unlink') return;
 
-  const output = 'src/styles/components';
+  const output = 'src/styles/uis';
   const extSuffix = '.module.scss';
   const outputDir = path.dirname(file).replace(input, output);
   const fileName = path.parse(file).name;
@@ -14,7 +14,7 @@ chokidar.watch(`${input}/**/*.tsx`).on('all', (event, file) => {
 
   if (event === 'add') {
     if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir);
+      fs.mkdirSync(outputDir, { recursive: true });
     }
 
     if (!fs.existsSync(targetCss)) {
