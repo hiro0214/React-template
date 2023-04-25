@@ -9,7 +9,7 @@ chokidar.watch(`${input}/**/*.tsx`).on('all', (event, file) => {
   const output = 'src/styles/uis';
   const extSuffix = '.module.scss';
   const outputDir = path.dirname(file).replace(input, output);
-  const fileName = path.parse(file).name;
+  const fileName = path.parse(file).name.toLowerCase();
   const targetCss = `${outputDir}/${fileName + extSuffix}`;
 
   if (event === 'add') {
